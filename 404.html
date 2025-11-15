@@ -5,30 +5,27 @@
     <title>简历生成器</title>
     <script type="text/javascript">
       // GitHub Pages 客户端路由重定向
-      // 当访问任何不存在的路由时，重定向到 index.html
+      // 保存当前路径到 sessionStorage，然后重定向到 index.html
       var pathSegmentsToKeep = 1;
-
       var l = window.location;
-      l.replace(
-        l.protocol +
-          "//" +
-          l.hostname +
-          (l.port ? ":" + l.port : "") +
-          "/utry2/" +
-          l.pathname
-            .split("/")
-            .slice(0, 2 + pathSegmentsToKeep)
-            .join("/") +
-          "/?/" +
-          l.pathname
-            .slice(1)
-            .split("/")
-            .slice(pathSegmentsToKeep)
-            .join("/")
-            .replace(/&/g, "~and~") +
-          (l.search ? "&" + l.search.slice(1).replace(/&/g, "~and~") : "") +
-          l.hash
-      );
+      var path = l.pathname
+        .split("/")
+        .slice(0, 2 + pathSegmentsToKeep)
+        .join("/");
+      var pathAfterBase = l.pathname
+        .slice(1)
+        .split("/")
+        .slice(pathSegmentsToKeep)
+        .join("/")
+        .replace(/&/g, "~and~");
+      var search = l.search ? "&" + l.search.slice(1).replace(/&/g, "~and~") : "";
+      var hash = l.hash;
+      
+      // 保存完整路径到 sessionStorage
+      sessionStorage.redirect = path + "/?/" + pathAfterBase + search + hash;
+      
+      // 重定向到 index.html
+      l.replace(path + "/");
     </script>
   </head>
   <body></body>
