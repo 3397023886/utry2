@@ -4,28 +4,16 @@
     <meta charset="utf-8" />
     <title>简历生成器</title>
     <script type="text/javascript">
-      // GitHub Pages 客户端路由重定向
-      // 保存当前路径到 sessionStorage，然后重定向到 index.html
-      var pathSegmentsToKeep = 1;
+      // GitHub Pages 单页应用路由重定向
+      // 将所有 404 请求重定向到 index.html
       var l = window.location;
-      var path = l.pathname
-        .split("/")
-        .slice(0, 2 + pathSegmentsToKeep)
-        .join("/");
-      var pathAfterBase = l.pathname
-        .slice(1)
-        .split("/")
-        .slice(pathSegmentsToKeep)
-        .join("/")
-        .replace(/&/g, "~and~");
-      var search = l.search ? "&" + l.search.slice(1).replace(/&/g, "~and~") : "";
-      var hash = l.hash;
       
-      // 保存完整路径到 sessionStorage
-      sessionStorage.redirect = path + "/?/" + pathAfterBase + search + hash;
-      
-      // 重定向到 index.html
-      l.replace(path + "/");
+      // 如果当前路径不是 /utry2/，则重定向到 /utry2/
+      if (l.pathname !== '/utry2/' && l.pathname !== '/utry2') {
+        // 保存完整路径（包括查询字符串和哈希）
+        var redirect = '/utry2/?redirect=' + encodeURIComponent(l.pathname + l.search + l.hash);
+        l.replace(redirect);
+      }
     </script>
   </head>
   <body></body>
